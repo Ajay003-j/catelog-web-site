@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Check Your Email Inbox!</h2>
+    <p>We sent a verification link to your registered email address.</p>
+
+    {% if resent %}
+        <p style="color: green; font-weight: bold;">
+            A fresh verification link has been successfully resent!
+        </p>
+    {% endif %}
+
+    <p>Didn't receive the email?</p>
+    <!-- Dynamic link targeting our custom resend view -->
+    <a href="{% url 'resend-verification' unverified_user.id %}" class="btn btn-secondary">
+        Resend Verification Link
+    </a>
+{% endblock %}

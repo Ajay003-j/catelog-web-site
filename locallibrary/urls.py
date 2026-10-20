@@ -26,5 +26,6 @@ urlpatterns = [
 
 urlpatterns += [
     path('catlog/', include('catlog.urls')),
-    path('',RedirectView.as_view(url='catlog/', permanent=True)),
+    path('',RedirectView.as_view(url='/catlog/', permanent=True)),
+    path('accounts/', include('django.contrib.auth.urls')),
     ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,22 @@
+# Virtual Environment (Crucial - do not push this to GitHub)
+.venv/
+venv/
+ENV/
+env/
+
+# Django local database (if you are using the default SQLite)
+*.sqlite3
+db.sqlite3
+
+# Python bytecode/compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables & secrets (if you use .env files)
+.env
+.env.local
+
+# Operating System files
+.DS_Store
+.Thmubs.db

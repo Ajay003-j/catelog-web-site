@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
@@ -99,6 +102,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = '/catlog/'
+LOGOUT_REDIRECT_URL = '/catlog/'
+LOGIN_URL = '/accounts/login/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
@@ -122,7 +128,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "use_tls": True,
+            "username": os.environ.get("EMAIL_USER"),
+            "password": os.environ.get("EMAIL_APP_PASSWORD"),
+        },
     },
 }
+
+DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_USER")
