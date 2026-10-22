@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}All Books{% endblock %}
+{% block content %}
+
+<p>Title:{{ notes.title }}</p>
+<p>Body:{{ notes.body }}</p>
+
+<a href="{% url 'notes-list' %}">back</a>
+
+{% endblock %}

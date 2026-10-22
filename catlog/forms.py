@@ -26,6 +26,5 @@ class BookForm(forms.ModelForm):
     #     return cleaned
 
 class NoteForm(forms.Form):
-    class Meta:
-        model = Notes
-        fields = ['title', 'body']
+    title = forms.CharField(max_length=200, label="Note Title")
+    body = forms.CharField(widget=forms.Textarea, label="Content")

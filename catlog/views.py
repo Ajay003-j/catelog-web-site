@@ -24,26 +24,27 @@ def about(request):
 @login_required
 def note_list(request):
     notes = Notes.objects.filter(owner = request.user)
-    return render(request, 'catlog/notes_list.html', {'notes',notes})
+    return render(request, 'catlog/notes_list.html', {'notes':notes})
 
 @login_required
-def note_details(request):
-    notes = get_object_or_404(Notes, id=pk, owner=request.user)
+def note_details(request, pk):
+    notes = get_object_or_404(Notes, pk=pk, owner=request.user)
     return render(request, 'catlog/notes_details.html', {'notes':notes})
 
-@permission_required('catlog.add_book', raise_exception=True)
-def book_create(request):
+@permission_required('catlog.add_notes', raise_exception=True)
+def note_create(request):
     if request.method == 'POST':
         form = NoteForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('note-details')
+            new_note = Notes.objects.create(owner = request.user,title=form.cleaned_data['title'],
+            body=form.cleaned_data['body'])
+            return redirect('notes-details',pk=new_note.pk)
     else:
         form = NoteForm()
-    return render(request, '', {'form':form})
+    return render(request, 'catlog/add_notes.html', {'form':form})
 
-def book_list(request, pk):
-    books = NoteForm.objects.filter()
+# def book_list(request, pk):
+#     books = NoteForm.objects.filter()
 
 # FIXED: Inherit from LoginRequiredMixin instead of applying decorator
 class BookListView(LoginRequiredMixin, generic.ListView):
